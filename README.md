@@ -1,9 +1,5 @@
 # 🌐 Web-Based Windows OS Dashboard
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/278720d3-80af-4af1-9e30-c0f393631277" width="911" alt="Project Dashboard Screenshot">
-</p>
-
 A sophisticated full-stack web application that recreates a Windows Desktop experience within a browser. This project integrates deep system-level file access with modern web security practices, allowing users to interact with their local machine drives through a web interface.
 
 ## 🚀 Key Features
@@ -38,3 +34,6 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 ### 2. Database Setup
 ```sql
 CREATE DATABASE hck_project_demo;
+
+
+<img width="883" height="426" alt="image" src="https://github.com/user-attachments/assets/73ff50f1-e681-41cd-b0eb-f765474d8c46" />
