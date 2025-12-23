@@ -35,5 +35,3 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 ```sql
 CREATE DATABASE hck_project_demo;
 
-
-<img width="883" height="426" alt="image" src="https://github.com/user-attachments/assets/73ff50f1-e681-41cd-b0eb-f765474d8c46" />
