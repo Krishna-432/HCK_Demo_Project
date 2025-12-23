@@ -1,6 +1,10 @@
 # 🌐 Web-Based Windows OS Dashboard
 
-A sophisticated full-stack web application that recreates a Windows Desktop experience within a browser. This project integrates deep system-level file access with modern web security practices.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/278720d3-80af-4af1-9e30-c0f393631277" width="911" alt="Project Dashboard Screenshot">
+</p>
+
+A sophisticated full-stack web application that recreates a Windows Desktop experience within a browser. This project integrates deep system-level file access with modern web security practices, allowing users to interact with their local machine drives through a web interface.
 
 ## 🚀 Key Features
 
@@ -10,7 +14,7 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 * **Functional Recycle Bin:** Logic to move files to a secure application bin and **Restore** them to their original system paths.
 * **Secure Authentication:** * User Registration with Password Strength Validation.
     * Spring Security 6 protected routes.
-    * **Password Reset:** Gmail SMTP integration for secure reset token delivery.
+    * **Password Reset:** Gmail SMTP integration for secure reset token delivery via email.
 
 ## 🛠️ Tech Stack
 
@@ -20,38 +24,17 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 | **Security** | Spring Security 6 (BCrypt Encryption) |
 | **Database** | MySQL 8.0 |
 | **Frontend** | Thymeleaf, HTML5, CSS3 (Glassmorphism), Vanilla JS |
-| **Mail** | Spring Boot Starter Mail (SMTP) |
+| **Mail** | Spring Boot Starter Mail (SMTP Integration) |
 
 
 
 ## ⚙️ Setup & Installation
 
 ### 1. Prerequisites
-* Java 21 JDK.
-* MySQL Server.
-* **IDE (Eclipse/IntelliJ) running as Administrator** (Required for Drive access).
+* Java 21 JDK installed.
+* MySQL Server running.
+* **IDE (Eclipse/IntelliJ) running as Administrator** (Required for local Drive access).
 
 ### 2. Database Setup
 ```sql
 CREATE DATABASE hck_project_demo;
-
-<img width="865" height="427" alt="image" src="https://github.com/user-attachments/assets/265bc8d0-56af-4b90-ba75-2634b3e04b8a" />
-
-<img width="911" height="493" alt="image" src="https://github.com/user-attachments/assets/278720d3-80af-4af1-9e30-c0f393631277" />
-
-Developed by Krishna-432
-
-
----
-
-### 📤 How to save and push this:
-1.  Open your `README.md` file in your project folder.
-2.  **Paste** the content above and **Save**.
-3.  Run these commands in your terminal:
-    ```powershell
-    git add README.md
-    git commit -m "Finalized README with project details"
-    git push origin main
-    ```
-
-**Would you like me to help you add a "Screenshot" section to the README once you have the app running?**
