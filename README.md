@@ -35,3 +35,16 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 ```sql
 CREATE DATABASE hck_project_demo;
 
+
+3. Application Configuration
+Update src/main/resources/application.properties with your database and Gmail SMTP credentials as shown below:
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/73ff50f1-e681-41cd-b0eb-f765474d8c46" width="850" alt="Application Properties Configuration"> </p>
+
+📂 Project Structure
+src/main/java/com/example/hckdemo/
+├── config/         # Security (Spring Security) & App Configuration
+├── controller/     # Auth, Dashboard & System File REST Controllers
+├── model/          # User Entities (MySQL Table Mapping)
+├── repository/     # JPA Data Access layer
+└── service/        # Business Logic & Email Service
