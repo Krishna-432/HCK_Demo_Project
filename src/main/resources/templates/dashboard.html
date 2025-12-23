@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>My Cloud OS</title>
+</head>
+<body>
+    <div class="desktop" id="desktop">
+        <div class="icon" onclick="openPC()"><img src="https://cdn-icons-png.flaticon.com/512/685/685655.png"><span>This PC</span></div>
+        <div class="icon" onclick="openBin()"><img src="https://cdn-icons-png.flaticon.com/512/3221/3221803.png"><span>Recycle Bin</span></div>
+        <div class="icon" onclick="window.open('https://www.google.com/chrome/', '_blank')"><img src="https://cdn-icons-png.flaticon.com/512/888/888846.png"><span>Chrome</span></div>
+        <div class="icon" onclick="window.open('https://www.microsoft.com/edge', '_blank')"><img src="https://cdn-icons-png.flaticon.com/512/732/732230.png"><span>Edge</span></div>
+        <div class="icon" onclick="window.open('https://www.mozilla.org/firefox/', '_blank')"><img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="Firefox"><span>Firefox</span>
+</div>
+    </div>
+
+    <div id="explorer" class="start-menu" style="width: 85%; height: 75%; bottom: 10%; left: 7.5%; display: none; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8);">
+        <div class="menu-header" style="display: flex; justify-content: space-between;">
+            <span id="winTitle" style="font-weight:bold;">This PC</span>
+            <span onclick="closeWin()" style="cursor:pointer; color:#ff6b6b;">✕ Close</span>
+        </div>
+        <div id="navBar" style="padding: 10px; display: flex; gap: 10px;">
+            <button class="btn-primary" style="width: 80px; margin:0; padding:5px;" onclick="goBack()">⬅ Back</button>
+        </div>
+        <div id="fileArea" style="flex: 1; overflow-y: auto; padding: 15px;"></div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn" onclick="toggleStart()">⊞</div>
+        <div id="startMenu" class="start-menu">
+            <div class="menu-header">User Session</div>
+            <a href="/logout" class="logout-item">Sign Out</a>
+        </div>
+        <div style="margin-left: auto; color: white; padding-right: 20px;"><span id="clock"></span></div>
+    </div>
+
+    <script>
+        let history = [], currPath = "";
+
+        function toggleStart() {
+            let s = document.getElementById('startMenu');
+            s.style.display = s.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function openPC() {
+            document.getElementById('explorer').style.display = 'flex';
+            document.getElementById('navBar').style.display = 'flex';
+            const res = await fetch('/api/system/roots');
+            const data = await res.json();
+            renderItems(data.map(r => ({name: "Local Disk ("+r+")", absPath: r, isDir: true})));
+            history = []; currPath = ""; document.getElementById('winTitle').innerText = "This PC";
+        }
+
+        async function nav(path) {
+            if (currPath) history.push(currPath);
+            currPath = path;
+            document.getElementById('winTitle').innerText = path;
+            const res = await fetch('/api/system/explore?path=' + encodeURIComponent(path));
+            renderItems(await res.json());
+        }
+
+        function renderItems(items) {
+            const area = document.getElementById('fileArea');
+            area.innerHTML = items.length === 0 ? "<p>Empty</p>" : "";
+            items.forEach(i => {
+                const d = document.createElement('div');
+                d.className = "icon"; d.style.flexDirection = "row"; d.style.width = "100%"; d.style.justifyContent = "start"; d.style.padding = "8px";
+                d.innerHTML = `<span style="margin-right:15px;">${i.isDir ? '📁' : '📄'}</span><span style="flex:1; text-align:left;">${i.name}</span>`;
+                if (i.isDir) d.onclick = () => nav(i.absPath);
+                else d.innerHTML += `<div style="display:flex; gap:15px;"><a href="/api/system/download?filePath=${encodeURIComponent(i.absPath)}" style="color:#ade8ff; text-decoration:none;">Get</a><span onclick="delFile('${i.absPath.replace(/\\/g, '/')}')" style="color:#ff6b6b; cursor:pointer;">Del</span></div>`;
+                area.appendChild(d);
+            });
+        }
+
+        async function delFile(p) { if(confirm("Recycle?")) { await fetch('/api/system/delete?filePath='+encodeURIComponent(p), {method:'POST'}); nav(currPath); } }
+
+        async function openBin() {
+            document.getElementById('explorer').style.display = 'flex';
+            document.getElementById('navBar').style.display = 'none';
+            document.getElementById('winTitle').innerText = "Recycle Bin";
+            const res = await fetch('/api/system/bin-content');
+            const files = await res.json();
+            const area = document.getElementById('fileArea');
+            area.innerHTML = files.length === 0 ? "<p>Bin is empty</p>" : "";
+            files.forEach(f => {
+                area.innerHTML += `<div class="icon" style="flex-direction:row; width:100%; justify-content:start; padding:10px;">
+                    <span style="flex:1;">📄 ${f}</span>
+                    <button onclick="restore('${f}')" style="background:#28a745; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:3px;">Restore</button>
+                </div>`;
+            });
+        }
+
+        async function restore(name) { await fetch('/api/system/restore?fileName='+encodeURIComponent(name), {method:'POST'}); openBin(); }
+        function goBack() { if(history.length > 0) nav(history.pop()); else openPC(); }
+        function closeWin() { document.getElementById('explorer').style.display = 'none'; }
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+        document.getElementById('desktop').onclick = () => { document.getElementById('startMenu').style.display = 'none'; };
+    </script>
+</body>
+</html>
