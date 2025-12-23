@@ -1,5 +1,9 @@
 # 🌐 Web-Based Windows OS Dashboard
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/278720d3-80af-4af1-9e30-c0f393631277" width="911" alt="Project Dashboard Screenshot">
+</p>
+
 A sophisticated full-stack web application that recreates a Windows Desktop experience within a browser. This project integrates deep system-level file access with modern web security practices, allowing users to interact with their local machine drives through a web interface.
 
 ## 🚀 Key Features
@@ -22,8 +26,6 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 | **Frontend** | Thymeleaf, HTML5, CSS3 (Glassmorphism), Vanilla JS |
 | **Mail** | Spring Boot Starter Mail (SMTP Integration) |
 
-
-
 ## ⚙️ Setup & Installation
 
 ### 1. Prerequisites
@@ -35,16 +37,3 @@ A sophisticated full-stack web application that recreates a Windows Desktop expe
 ```sql
 CREATE DATABASE hck_project_demo;
 
-
-3. Application Configuration
-Update src/main/resources/application.properties with your database and Gmail SMTP credentials as shown below:
-
-<p align="center"> <img src="https://github.com/user-attachments/assets/73ff50f1-e681-41cd-b0eb-f765474d8c46" width="850" alt="Application Properties Configuration"> </p>
-
-📂 Project Structure
-src/main/java/com/example/hckdemo/
-├── config/         # Security (Spring Security) & App Configuration
-├── controller/     # Auth, Dashboard & System File REST Controllers
-├── model/          # User Entities (MySQL Table Mapping)
-├── repository/     # JPA Data Access layer
-└── service/        # Business Logic & Email Service
